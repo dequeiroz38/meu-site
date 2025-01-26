@@ -1,0 +1,90 @@
+https://idx.google.com/techbtech-7431948
+
+code
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Layout Responsivo',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const ResponsiveLayout(),
+    );
+  }
+}
+
+class ResponsiveLayout extends StatelessWidget {
+  const ResponsiveLayout({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Layout Responsivo'),
+      ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth < 600) {
+            // Layout para telas pequenas (mobile)
+            return ListView(
+              children: const [
+                ListTile(
+                  leading: Icon(Icons.home),
+                  title: Text('Home'),
+                ),
+                ListTile(
+                  leading: Icon(Icons.info),
+                  title: Text('Sobre'),
+                ),
+                ListTile(
+                  leading: Icon(Icons.contact_mail),
+                  title: Text('Contato'),
+                ),
+              ],
+            );
+          } else {
+            // Layout para telas grandes (tablet ou desktop)
+            return Row(
+              children: [
+                NavigationRail(
+                  selectedIndex: 0,
+                  onDestinationSelected: (int index) {},
+                  destinations: const [
+                    NavigationRailDestination(
+                      icon: Icon(Icons.home),
+                      label: Text('Home'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.info),
+                      label: Text('Sobre'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.contact_mail),
+                      label: Text('Contato'),
+                    ),
+                  ],
+                ),
+                const Expanded(
+                  child: Center(
+                    child: Text(
+                      'Bem-vindo ao Layout Responsivo!',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }
+        },
+      ),
+    );
+  }
+}
